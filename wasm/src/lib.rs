@@ -233,6 +233,14 @@ pub fn consume_audio_samples() -> Vec<i16> {
 }
 
 #[wasm_bindgen]
+pub fn get_ram(addresses: Vec<u16>) -> Vec<u8> {
+  let runtime = RUNTIME.lock().expect("wat");
+  let nes = &runtime.nes;
+
+  return nes.ram(addresses).to_owned();
+}
+
+#[wasm_bindgen]
 pub fn get_sram() -> Vec<u8> {
   let runtime = RUNTIME.lock().expect("wat");
   let nes = &runtime.nes;

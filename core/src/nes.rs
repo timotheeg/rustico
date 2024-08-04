@@ -162,4 +162,14 @@ impl NesState {
             self.mapper.load_sram(sram_data);
         }
     }
+
+    pub fn ram(&self, addresses: Vec<u16>) -> Vec<u8> { 
+        let mut res = vec!(0u8; addresses.len());
+        for i in 0 .. addresses.len() {
+            // TODO: make _read_bye a public method
+            // res[i] = self.memory._read_byte(addresses[i])
+            res[i] = self.memory.iram_raw[(addresses[i] & 0x7FF) as usize];
+        }
+        return res
+    }
 }
